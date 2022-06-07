@@ -1,0 +1,6 @@
+{
+  "extension": ["js", "ts", "tsx"],
+  "loader": ["ts-node/esm"],
+  "recursive": "test /**/*.spec.js",
+  "ui": "bdd"
+}

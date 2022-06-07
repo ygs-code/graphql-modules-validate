@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "sourceMap": true, // 是否生成sourceMap（用于调试）
+        "declarationDir": "./dist/types/", // 声明文件打包的位置
+        "declarationMap": true, // 是否生成声明文件map文件（便于调试）
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "declaration": true /* */
+    },
+
+    "awesomeTypescriptLoaderOptions": {
+        /* */
+    }
+}
