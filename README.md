@@ -4,6 +4,18 @@ Secondary encapsulation based on GraphQL-modules.。
 
 As our project gets bigger and bigger, graphQL gets bigger and bigger, and we need to modularize them in a way that helps decouple and maintain them.
 
+##  installation
+
+```
+npm i --save graphql-modules-validate
+or
+yarn add graphql-modules-validate
+```
+
+
+
+
+
 ## Modular use method：
 
 For example, we can divide it into several modules
@@ -280,11 +292,23 @@ options  ：
 
 # 中文文档
 
-
-
-## 基于graphql-modules二次封装。
+基于graphql-modules二次封装。
 
 当我们的项目越来越大的时候，graphql就会越来越大，这个时候我们需要把他们模块化，这样方式可以利于解耦和维护。
+
+## 安装
+
+```
+npm i --save graphql-modules-validate
+or
+yarn add graphql-modules-validate
+```
+
+
+
+
+
+
 
 ## 模块化使用方法：
 
