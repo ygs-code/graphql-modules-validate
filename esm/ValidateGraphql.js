@@ -155,6 +155,7 @@ class ValidateGraphql {
   constructor(options = {}) {
     this.options = {
       lang: 'EN',
+      modules: [],
       ...options,
     }
   }
@@ -182,7 +183,7 @@ class ValidateGraphql {
     //     ...this.options,
     //     ...options,
     // };
-    let { modules = [], lang = 'EN' } = this.options
+    let { modules = [] } = this.options
 
     let cacheRecord = []
     let newModules = []
@@ -275,7 +276,7 @@ class ValidateGraphql {
 
   //验证单个SeverSchema
   validateSeverSchema = (config) => {
-    let { modules = [], lang = 'EN' } = this.options
+    let { modules = [], lang } = this.options
     let {
       typeDefs = [],
       id, // id不能${language[lang].and}其他模块重名
@@ -337,7 +338,7 @@ class ValidateGraphql {
     this.validateResolvers()
 
     let {
-      lang = 'EN',
+      lang,
       modules = [],
       serverSchema: { schema: serverSchema = '', resolvers = {} } = {},
     } = this.options
@@ -389,7 +390,7 @@ class ValidateGraphql {
       //     variables = {},
       //     operationName,
       // } = {},
-      lang = 'EN',
+      lang,
     } = this.options
 
     let {
@@ -437,7 +438,7 @@ class ValidateGraphql {
     let {
       serverSchema: { schema: serverSchema = '', resolvers = {} } = {},
       // clientSchema: { schema: clientSchema = '', variables = {} } = {},
-      lang = 'EN',
+      lang,
     } = this.options
 
     let {
@@ -477,7 +478,7 @@ class ValidateGraphql {
   validateGraphql = async (options = {}) => {
     let {
       serverSchema: { schema: serverSchema = '', resolvers = {} } = {},
-      lang = 'EN',
+      lang,
     } = this.options
     let {
       clientSchema: { schema: clientSchema = '', variables = {} } = {},
@@ -532,8 +533,9 @@ class ValidateGraphql {
   }
 }
 const validateGraphql = (options) => {
-  const { modules = [] } = options
+  const { modules = [], lang = 'zh-CN' } = options
   let $validateGraphql = new ValidateGraphql({
+    lang,
     modules,
   })
 
