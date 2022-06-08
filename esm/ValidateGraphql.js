@@ -533,7 +533,7 @@ class ValidateGraphql {
   }
 }
 const validateGraphql = (options) => {
-  const { modules = [], lang = 'zh-CN' } = options
+  const { modules = [], lang = 'EN' } = options
   let $validateGraphql = new ValidateGraphql({
     lang,
     modules,
