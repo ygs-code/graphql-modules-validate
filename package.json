@@ -1,7 +1,7 @@
 {
   "name": "graphql-modules-validate",
   "sideEffects": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "./cjs/ValidateGraphql.js",
   "dependencies": {
