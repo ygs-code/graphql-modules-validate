@@ -155,6 +155,7 @@ class ValidateGraphql {
   constructor(options = {}) {
     this.options = {
       lang: 'EN',
+      debug: true,
       modules: [],
       ...options,
     }
@@ -183,7 +184,7 @@ class ValidateGraphql {
     //     ...this.options,
     //     ...options,
     // };
-    let { modules = [] } = this.options
+    let { modules = [], debug } = this.options
 
     let cacheRecord = []
     let newModules = []
@@ -276,7 +277,7 @@ class ValidateGraphql {
 
   //验证单个SeverSchema
   validateSeverSchema = (config) => {
-    let { modules = [], lang } = this.options
+    let { modules = [], lang, debug } = this.options
     let {
       typeDefs = [],
       id, // id不能${language[lang].and}其他模块重名
@@ -307,8 +308,16 @@ class ValidateGraphql {
       if (validateSeverSchemaInfo.length > 0) {
         throw validateSeverSchemaInfo
       }
-
-      console.log(chalk.rgb(36, 114, 199)(`${language[lang].schemaVerified}`))
+      debug &&
+        console.log(
+          chalk.rgb(
+            36,
+            114,
+            199,
+          )(
+            `${language[lang].moduleID}：${id}， ${language[lang].schemaVerified}`,
+          ),
+        )
     } catch (error) {
       // console.error(
       //     chalk.red(
@@ -341,11 +350,12 @@ class ValidateGraphql {
       lang,
       modules = [],
       serverSchema: { schema: serverSchema = '', resolvers = {} } = {},
+      debug,
     } = this.options
 
     // This is your application, it contains your GraphQL schema and the implementation of it.
     this.application = createApplication({
-      modules,
+      modules, 
     })
     // 获取验证函数
     this.executeFn = this.application.createExecution()
@@ -368,7 +378,14 @@ class ValidateGraphql {
       if (validateSeverSchemaInfo.length > 0) {
         throw validateSeverSchemaInfo
       }
-      console.log(chalk.rgb(36, 114, 199)(`${language[lang].schemaVerified}`))
+      debug &&
+        console.log(
+          chalk.rgb(
+            36,
+            114,
+            199,
+          )(`modules application , ${language[lang].schemaVerified}`),
+        )
     } catch (error) {
       // console.error(chalk.red('${language[lang].serverSchemaVerification}:', error));
       throw new Error(
@@ -391,6 +408,7 @@ class ValidateGraphql {
       //     operationName,
       // } = {},
       lang,
+      debug,
     } = this.options
 
     let {
@@ -417,9 +435,10 @@ class ValidateGraphql {
     try {
       // 验证客户端 schema
       documentAST = parse(source)
-      console.log(
-        chalk.rgb(36, 114, 199)(`${language[lang].verifyClientSchemaPasses}`),
-      )
+      debug &&
+        console.log(
+          chalk.rgb(36, 114, 199)(`${language[lang].verifyClientSchemaPasses}`),
+        )
     } catch (syntaxError) {
       // console.error(chalk.red('${language[lang].validateClientFailed}:', syntaxError));
       throw new Error(
@@ -439,6 +458,7 @@ class ValidateGraphql {
       serverSchema: { schema: serverSchema = '', resolvers = {} } = {},
       // clientSchema: { schema: clientSchema = '', variables = {} } = {},
       lang,
+      debug
     } = this.options
 
     let {
@@ -457,9 +477,14 @@ class ValidateGraphql {
       if (validationErrors.length > 0) {
         throw validationErrors
       }
-      console.log(
-        chalk.rgb(36, 114, 199)(`${language[lang].serverClientSchemaVerified}`),
-      )
+      debug &&
+        console.log(
+          chalk.rgb(
+            36,
+            114,
+            199,
+          )(`${language[lang].serverClientSchemaVerified}`),
+        )
     } catch (syntaxError) {
       // console.error(
       //     chalk.red(
@@ -479,6 +504,7 @@ class ValidateGraphql {
     let {
       serverSchema: { schema: serverSchema = '', resolvers = {} } = {},
       lang,
+      debug,
     } = this.options
     let {
       clientSchema: { schema: clientSchema = '', variables = {} } = {},
@@ -502,15 +528,16 @@ class ValidateGraphql {
       if (errors) {
         throw errors
       }
-      //   console.log("data======", data);
+
       const keys = Object.keys(data)
-      console.log(
-        chalk.rgb(
-          36,
-          114,
-          199,
-        )(`${language[lang].clientServerSchemaRequestParametersVerified}`),
-      )
+      debug &&
+        console.log(
+          chalk.rgb(
+            36,
+            114,
+            199,
+          )(`${language[lang].clientServerSchemaRequestParametersVerified}`),
+        )
       return returnFirst
         ? {
             ...data[keys[0]],
@@ -533,8 +560,9 @@ class ValidateGraphql {
   }
 }
 const validateGraphql = (options) => {
-  const { modules = [], lang = 'EN' } = options
+  const { modules = [], lang = 'EN', debug = true } = options
   let $validateGraphql = new ValidateGraphql({
+    debug,
     lang,
     modules,
   })
